@@ -1,11 +1,12 @@
 import {Database} from "./database.js";
+import {buildRoutes} from "./helpers/build-routes.js";
 
 const database = new Database();
 
 export const routes = [
     {
         method: 'GET',
-        path: '/users',
+        path: buildRoutes('/users'),
         handler: (req, res) => {
             return res.setHeader('Content-Type', 'application/json')
                 .end(JSON.stringify(database.select("users")));
@@ -13,7 +14,7 @@ export const routes = [
     },
     {
         method: 'POST',
-        path: '/users',
+        path: buildRoutes('/users'),
         handler: (req, res) => {
             const { name, email, password } = req.body;
             const data = {
@@ -28,14 +29,14 @@ export const routes = [
     },
     {
         method: 'PUT',
-        path: '/users/:id',
+        path: buildRoutes('/users/:id'),
         handler: (req, res) => {
-
+            return res.setHeader('Content-Type', 'application/json').writeHead(200).end();
         }
     },
     {
         method: 'DELETE',
-        path: '/users/:id',
+        path: buildRoutes('/users/:id'),
         handler: (req, res) => {
 
         }

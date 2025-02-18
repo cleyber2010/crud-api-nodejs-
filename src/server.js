@@ -15,9 +15,11 @@ const server = http.createServer(async (req, res) => {
         req.body = null;
     }
 
-    const route = routes.filter(item => item.method === method && item.path === url)[0];
+    const route = routes.filter(item => item.method === method && item.path.test(url))[0];
 
     if (route) {
+        const path = url.match(route.path);
+        console.log(path);
         return route.handler(req, res);
     }
 
