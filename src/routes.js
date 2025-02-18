@@ -8,6 +8,7 @@ export const routes = [
         method: 'GET',
         path: buildRoutes('/users'),
         handler: (req, res) => {
+
             return res.setHeader('Content-Type', 'application/json')
                 .end(JSON.stringify(database.select("users")));
         }
