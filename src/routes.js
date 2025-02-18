@@ -16,12 +16,8 @@ export const routes = [
         method: 'POST',
         path: buildRoutes('/users'),
         handler: (req, res) => {
-            const { name, email, password } = req.body;
             const data = {
-                id: 10,
-                name,
-                email,
-                password
+                ...req.body,
             }
             database.insert("users", data);
             return res.writeHead(201).end();
@@ -31,6 +27,12 @@ export const routes = [
         method: 'PUT',
         path: buildRoutes('/users/:id'),
         handler: (req, res) => {
+            const { id } = req.params;
+            const data = {
+                ...req.body,
+            }
+
+            database.update("users", id, data);
             return res.setHeader('Content-Type', 'application/json').writeHead(200).end();
         }
     },

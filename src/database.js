@@ -24,6 +24,15 @@ export class Database {
         }
     }
 
+    update(table, id, data) {
+        const index = this.#database[table].findIndex(row => row.id === id);
+        console.log(index);
+        if (index > -1) {
+            this.#database[table][index] = {id, ...data};
+            this.#persist();
+        }
+    }
+
     #persist() {
         fs.writeFile(databasePath, JSON.stringify(this.#database));
     }
