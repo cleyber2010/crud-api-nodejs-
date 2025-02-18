@@ -15,10 +15,10 @@ const server = http.createServer(async (req, res) => {
         req.body = null;
     }
 
-    const route = routes.filter(item => item.method === method && item.path === url);
+    const route = routes.filter(item => item.method === method && item.path === url)[0];
 
     if (route) {
-        console.log(route);
+        return route.handler(req, res);
     }
 
     res.writeHead(200).end();
