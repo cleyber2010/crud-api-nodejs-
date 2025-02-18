@@ -15,7 +15,15 @@ export const routes = [
         method: 'POST',
         path: '/users',
         handler: (req, res) => {
-
+            const { name, email, password } = req.body;
+            const data = {
+                id: 10,
+                name,
+                email,
+                password
+            }
+            database.insert("users", data);
+            return res.writeHead(201).end();
         }
     },
     {
