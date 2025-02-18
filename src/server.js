@@ -1,5 +1,6 @@
 import http from 'node:http'
 import {routes} from "./routes.js";
+import {extractQueryParams} from "./helpers/route-query-builder.js";
 
 const server = http.createServer(async (req, res) => {
     const { method, url } = req;
@@ -19,7 +20,9 @@ const server = http.createServer(async (req, res) => {
 
     if (route) {
         const path = url.match(route.path);
-        console.log(path);
+        const {query, ...params} = path.groups;
+        req.query = query ? extractQueryParams(query) : null;
+        req.params = params;
         return route.handler(req, res);
     }
 
